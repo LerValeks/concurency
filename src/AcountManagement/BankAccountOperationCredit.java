@@ -1,7 +1,7 @@
 package AcountManagement;
 
 public class BankAccountOperationCredit implements Runnable {
-    private final int creditAmount = 200;
+    private final int creditAmount = 500;
     private final AccountManagement accountManagement;
 
     public BankAccountOperationCredit(AccountManagement accountManagement) {
@@ -11,7 +11,7 @@ public class BankAccountOperationCredit implements Runnable {
     @Override
     public void run() {
         synchronized (accountManagement) {
-            for (int i = 0; i <= 10; i++) {
+            for (int i = 0; i <= 8; i++) {
 
                 while (accountManagement.getAccountBalance() < creditAmount) {
 
