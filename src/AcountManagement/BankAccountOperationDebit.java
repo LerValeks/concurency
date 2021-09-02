@@ -10,10 +10,14 @@ public class BankAccountOperationDebit implements Runnable {
     @Override
     public void run() {
 
-        for(int i = 0;i<=3; i++) {
-            Long initialBalance = accountManagement.getAccountBalance();
-            accountManagement.debitToAccount(300);
-            System.out.println(Thread.currentThread().getName() + " Balance:" + initialBalance + " Value added +" +300 );
+        synchronized (accountManagement) {
+            for (int i = 0; i <= 10; i++) {
+                Long initialBalance = accountManagement.getAccountBalance();
+                accountManagement.debitToAccount(400);
+                accountManagement.notifyAll();
+                System.out.println(Thread.currentThread().getName() + " Balance:" + initialBalance + " Value added +" + 400);
+
+            }
         }
     }
 }

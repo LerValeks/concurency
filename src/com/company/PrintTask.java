@@ -21,9 +21,9 @@ public class PrintTask implements Runnable{
               @Override
       public void run() {
                      try { // put thread to sleep for sleepTime amount of time
-                            System.out.printf("%s going to sleep for %d milliseconds.%n",
-                                       taskName, sleepTime);
-                            Thread.sleep(sleepTime); // put thread to sleep
+                         System.out.printf("%s going to sleep for %d milliseconds.%n",
+                                 taskName, sleepTime);
+                         Thread.sleep(sleepTime); // put thread to sleep
                          }
                      catch (InterruptedException exception) {
                             exception.printStackTrace();

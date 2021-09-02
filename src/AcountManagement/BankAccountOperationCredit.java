@@ -1,7 +1,7 @@
 package AcountManagement;
 
 public class BankAccountOperationCredit implements Runnable {
-
+    private final int creditAmount = 200;
     private final AccountManagement accountManagement;
 
     public BankAccountOperationCredit(AccountManagement accountManagement) {
@@ -10,12 +10,24 @@ public class BankAccountOperationCredit implements Runnable {
 
     @Override
     public void run() {
+        synchronized (accountManagement) {
+            for (int i = 0; i <= 10; i++) {
 
-        for (int i = 0; i <= 3; i++) {
-            Long initialBalance = accountManagement.getAccountBalance();
-            accountManagement.creditToAccount(500);
-            System.out.println(Thread.currentThread().getName() + " Balance:" + initialBalance + " Value taken -" +500);
+                while (accountManagement.getAccountBalance() < creditAmount) {
 
+                    try {
+                        System.out.println(Thread.currentThread().getName() + "Thread interrupted");
+                        accountManagement.wait();
+
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+
+                    }
+                }
+                Long initialBalance = accountManagement.getAccountBalance();
+                accountManagement.creditToAccount(creditAmount);
+                System.out.println(Thread.currentThread().getName() + " Balance:" + initialBalance + " Value taken -" + creditAmount);
+            }
         }
     }
 }
